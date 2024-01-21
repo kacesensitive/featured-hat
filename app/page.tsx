@@ -41,11 +41,12 @@ export default function IndexPage() {
   const [isDisplayMessageVisible, setIsDisplayMessageVisible] = useState(true);
   const [selectedQueueMessageId, setSelectedQueueMessageId] = useState<string | undefined>(undefined);
   const [inputChannel, setInputChannel] = useState<string>(TWITCH_CHANNEL);
+  const [isChannelLoaded, setIsChannelLoaded] = useState(false);
 
   useEffect(() => {
-    // Access localStorage inside useEffect, which runs client-side
-    const savedChannel = window.localStorage.getItem('twitchChannel') || TWITCH_CHANNEL;
-    setInputChannel(savedChannel);
+    const savedChannel = window.localStorage.getItem('twitchChannel');
+    setInputChannel(savedChannel || TWITCH_CHANNEL);
+    setIsChannelLoaded(true);
   }, []);
 
   const chatContainerRef = useRef<HTMLDivElement>(null);
@@ -57,7 +58,6 @@ export default function IndexPage() {
   };
 
   useEffect(() => {
-    // Call scrollToBottom whenever the messages state changes
     scrollToBottom();
   }, [messages]);
 
@@ -86,6 +86,9 @@ export default function IndexPage() {
   };
 
   useEffect(() => {
+    if (!isChannelLoaded) {
+      return;
+    }
     const client = new tmi.Client({
       connection: {
         secure: true,
@@ -144,7 +147,7 @@ export default function IndexPage() {
     return () => {
       client.disconnect();
     };
-  }, []);
+  }, [isChannelLoaded, inputChannel]);
 
   return (
     <div style={{ display: 'flex', height: '93vh' }}>
@@ -165,7 +168,7 @@ export default function IndexPage() {
               justifyContent: "center",
               padding: "10px",
               backgroundColor: "black",
-              fontSize: emojiSize,
+              fontSize: '16px',
               maxWidth: '100%',
               minWidth: '100%',
               cursor: 'pointer',
@@ -181,7 +184,7 @@ export default function IndexPage() {
               <span className="username" style={{
                 fontWeight: "bold",
                 color: msg.color && isDark(msg.color) ? lightenColor(msg.color, 40) : msg.color || "white",
-                fontSize: emojiSize,
+                fontSize: '16px',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
                 whiteSpace: 'nowrap',
@@ -199,11 +202,11 @@ export default function IndexPage() {
               textAlign: 'left',
               padding: '0 10px',
             }}>
-              <span className="message" dangerouslySetInnerHTML={{
+              <span dangerouslySetInnerHTML={{
                 __html: Autolinker.link(safeParse(msg.message || '-', [], options), {
                   className: 'apple',
                 }),
-              }} style={{ fontSize: emojiSize }} />
+              }} style={{ fontSize: '16px' }} />
             </div>
             <div style={{
               bottom: '0',
