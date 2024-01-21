@@ -11,6 +11,6 @@ export const siteConfig = {
     },
   ],
   links: {
-    github: "https://github.com/",
+    github: "https://github.com/kacesensitive/featured-hat",
   },
 }
