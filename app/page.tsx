@@ -8,7 +8,7 @@ import { EmoteOptions } from 'simple-tmi-emotes';
 import tmi from 'tmi.js';
 import { FaCheck, FaEye, FaEyeSlash } from 'react-icons/fa';
 
-const TWITCH_CHANNEL = 'gernaderjake';
+const TWITCH_CHANNEL = 'EverythingNowShow';
 
 interface Message {
   id: string | undefined;
