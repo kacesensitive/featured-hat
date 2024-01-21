@@ -40,9 +40,13 @@ export default function IndexPage() {
   const [displayMessage, setDisplayMessage] = useState<any | null>(null);
   const [isDisplayMessageVisible, setIsDisplayMessageVisible] = useState(true);
   const [selectedQueueMessageId, setSelectedQueueMessageId] = useState<string | undefined>(undefined);
-  const [inputChannel, setInputChannel] = useState<string>(() => {
-    return window.localStorage.getItem('twitchChannel') || TWITCH_CHANNEL;
-  });
+  const [inputChannel, setInputChannel] = useState<string>(TWITCH_CHANNEL);
+
+  useEffect(() => {
+    // Access localStorage inside useEffect, which runs client-side
+    const savedChannel = window.localStorage.getItem('twitchChannel') || TWITCH_CHANNEL;
+    setInputChannel(savedChannel);
+  }, []);
 
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
