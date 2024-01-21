@@ -41,7 +41,7 @@ export default function IndexPage() {
   const [isDisplayMessageVisible, setIsDisplayMessageVisible] = useState(true);
   const [selectedQueueMessageId, setSelectedQueueMessageId] = useState<string | undefined>(undefined);
   const [inputChannel, setInputChannel] = useState<string>(() => {
-    return localStorage.getItem('twitchChannel') || TWITCH_CHANNEL;
+    return window.localStorage.getItem('twitchChannel') || TWITCH_CHANNEL;
   });
 
   const chatContainerRef = useRef<HTMLDivElement>(null);
@@ -58,7 +58,7 @@ export default function IndexPage() {
   }, [messages]);
 
   const handleChannelChange = () => {
-    localStorage.setItem('twitchChannel', inputChannel);
+    window.localStorage.setItem('twitchChannel', inputChannel);
     window.location.reload();
   };
 
