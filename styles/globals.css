@@ -1,0 +1,124 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* these are the same for now, may add light mode later */
+    --background: 0 0% 0%;
+    /* Solid black */
+    --foreground: 0 0% 100%;
+    /* White for contrast */
+
+    --muted: 0 0% 50%;
+    /* Gray for muted elements */
+    --muted-foreground: 0 0% 100%;
+    /* White for muted foreground */
+
+    --accent: 0 0% 40%;
+    /* Dark gray for accent */
+    --accent-foreground: 0 0% 100%;
+    /* White for accent foreground */
+
+    --popover: 0 0% 0%;
+    /* Solid black for popover */
+    --popover-foreground: 0 0% 100%;
+    /* White for popover foreground */
+
+    --border: 0 0% 30%;
+    /* Dark gray for border */
+    --input: 0 0% 30%;
+    /* Dark gray for input */
+
+    --card: 0 0% 0%;
+    /* Solid black for card */
+    --card-foreground: 0 0% 100%;
+    /* White for card foreground */
+
+    --primary: 210 40% 98%;
+    /* Keeping primary as is */
+    --primary-foreground: 0 0% 0%;
+    /* Black for primary foreground */
+
+    --secondary: 222.2 47.4% 11.2%;
+    /* Keeping secondary as is */
+    --secondary-foreground: 210 40% 98%;
+    /* Keeping secondary foreground as is */
+
+    --destructive: 0 63% 31%;
+    /* Keeping destructive as is */
+    --destructive-foreground: 210 40% 98%;
+    /* Keeping destructive foreground as is */
+
+    --ring: 0 0% 30%;
+    /* Dark gray for ring */
+
+    --radius: 0.5rem;
+    /* Keeping radius as is */
+  }
+
+
+  .dark {
+    --background: 0 0% 0%;
+    /* Solid black */
+    --foreground: 0 0% 100%;
+    /* White for contrast */
+
+    --muted: 0 0% 50%;
+    /* Gray for muted elements */
+    --muted-foreground: 0 0% 100%;
+    /* White for muted foreground */
+
+    --accent: 0 0% 40%;
+    /* Dark gray for accent */
+    --accent-foreground: 0 0% 100%;
+    /* White for accent foreground */
+
+    --popover: 0 0% 0%;
+    /* Solid black for popover */
+    --popover-foreground: 0 0% 100%;
+    /* White for popover foreground */
+
+    --border: 0 0% 30%;
+    /* Dark gray for border */
+    --input: 0 0% 30%;
+    /* Dark gray for input */
+
+    --card: 0 0% 0%;
+    /* Solid black for card */
+    --card-foreground: 0 0% 100%;
+    /* White for card foreground */
+
+    --primary: 210 40% 98%;
+    /* Keeping primary as is */
+    --primary-foreground: 0 0% 0%;
+    /* Black for primary foreground */
+
+    --secondary: 222.2 47.4% 11.2%;
+    /* Keeping secondary as is */
+    --secondary-foreground: 210 40% 98%;
+    /* Keeping secondary foreground as is */
+
+    --destructive: 0 63% 31%;
+    /* Keeping destructive as is */
+    --destructive-foreground: 210 40% 98%;
+    /* Keeping destructive foreground as is */
+
+    --ring: 0 0% 30%;
+    /* Dark gray for ring */
+
+    --radius: 0.5rem;
+    /* Keeping radius as is */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
