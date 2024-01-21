@@ -1,22 +1,15 @@
-# next-template
+# Featured Hat
 
-A Next.js 13 template for building apps with Radix UI and Tailwind CSS.
+## About
+Featured Hat is an open-source replacement for featured.chat, built with Next.js and Shadcn UI. It's designed for spotlighting live chat interactions, perfect for streamers and content creators.
 
-## Usage
+## Getting Started
+1. Clone the repo: `git clone https://github.com/kacesensitive/featured-hat`
+2. Install dependencies: `yarn install`
+3. Start the development server: `yarn dev` (visit `http://localhost:3000`)
 
-```bash
-npx create-next-app -e https://github.com/shadcn/next-template
-```
-
-## Features
-
-- Next.js 13 App Directory
-- Radix UI Primitives
-- Tailwind CSS
-- Icons from [Lucide](https://lucide.dev)
-- Dark mode with `next-themes`
-- Tailwind CSS class sorting, merging and linting.
+## Contribute
+Contributions are welcome! Simply fork the repo, create your feature branch, and submit a pull request.
 
 ## License
-
-Licensed under the [MIT license](https://github.com/shadcn/ui/blob/main/LICENSE.md).
+MIT License
