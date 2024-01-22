@@ -50,9 +50,15 @@ function IndexPage() {
     const savedChannel = window.localStorage.getItem('twitchChannel');
     setInputChannel(savedChannel || TWITCH_CHANNEL);
     setIsChannelLoaded(true);
-    const url = new URL(window.location.href);
-    const room = url.searchParams.get('_driftdb_room');
-    setViewerUrl(url.origin + '/viewer?_driftdb_room=' + room);
+  }, []);
+
+  useEffect(() => {
+    // delay for 2 seconds to allow the viewer to load
+    setTimeout(() => {
+      const url = new URL(window.location.href);
+      const room = url.searchParams.get('_driftdb_room');
+      setViewerUrl(url.origin + '/viewer?_driftdb_room=' + room);
+    }, 2000);
   }, []);
 
   const chatContainerRef = useRef<HTMLDivElement>(null);
@@ -79,7 +85,7 @@ function IndexPage() {
   };
 
   const toggleDisplayMessage = () => {
-    
+
     setIsDisplayMessageVisible(!isDisplayMessageVisible);
   };
 
@@ -412,8 +418,8 @@ function IndexPage() {
 export default function Index() {
   const dbUrl = "https://api.jamsocket.live/db/IB4pCl9ESAW6jK3IwIw4/";
   return (
-      <DriftDBProvider api={dbUrl}>
-          <IndexPage />
-      </DriftDBProvider>
+    <DriftDBProvider api={dbUrl}>
+      <IndexPage />
+    </DriftDBProvider>
   );
 }

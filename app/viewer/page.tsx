@@ -42,7 +42,7 @@ function ViewerPage() {
                         padding: "10px",
                         backgroundColor: "black",
                         fontSize: '40px',
-                        maxWidth: '580px',
+                        maxWidth: '700px',
                         width: '100%',
                         cursor: 'pointer',
                     }}
