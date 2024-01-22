@@ -3,6 +3,7 @@ import { isDark, lightenColor, safeParse } from "@/lib/utils";
 import Autolinker from "autolinker";
 import { DriftDBProvider, useSharedState } from "driftdb-react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import { EmoteOptions } from "simple-tmi-emotes";
 
 const options: EmoteOptions = {
@@ -12,8 +13,25 @@ const options: EmoteOptions = {
 };
 
 function ViewerPage() {
-    const [message, setMessage] = useSharedState<any>('hat-message', {});
-    const [isDisplayMessageVisible, setIsDisplayMessageVisible] = useSharedState('hat-message-visible', false);
+    const [message,] = useSharedState<any>('hat-message', {});
+    const [isDisplayMessageVisible,] = useSharedState('hat-message-visible', false);
+    const [isLongMessage, setIsLongMessage] = useState(false);
+
+    useEffect(() => {
+        // Assuming an average character per line limit, adjust as needed
+        const charLimitPerLine = 40; 
+        const lineLimit = 4;
+        const charLimit = charLimitPerLine * lineLimit;
+
+        if (message.message && message.message.length > charLimit) {
+            setIsLongMessage(true);
+        } else {
+            setIsLongMessage(false);
+        }
+    }, [message]);
+
+    const longMessageStyle = isLongMessage ? { fontSize: '25px' } : { fontSize: '40px' };
+    
     return (
         <div style={{
             position: 'fixed',
@@ -41,10 +59,10 @@ function ViewerPage() {
                             justifyContent: "flex-start",
                             padding: "10px",
                             backgroundColor: "black",
-                            fontSize: '40px',
                             maxWidth: '700px',
                             width: '100%',
                             cursor: 'pointer',
+                            fontSize: longMessageStyle.fontSize,
                         }}
                     >
                         <div style={{
@@ -57,7 +75,7 @@ function ViewerPage() {
                             <span className="username" style={{
                                 fontWeight: "bold",
                                 color: message.color && isDark(message.color) ? lightenColor(message.color, 40) : message.color || "white",
-                                fontSize: '40px',
+                                fontSize: longMessageStyle.fontSize,
                                 overflow: 'hidden',
                                 textOverflow: 'ellipsis',
                                 whiteSpace: 'nowrap',
@@ -79,7 +97,7 @@ function ViewerPage() {
                                 __html: Autolinker.link(safeParse(message.message || '-', [], options), {
                                     className: 'apple',
                                 }),
-                            }} style={{ fontSize: '40px' }} />
+                            }} style={{ fontSize: longMessageStyle.fontSize, }} />
                         </div>
                         <div style={{
                             bottom: '0',
