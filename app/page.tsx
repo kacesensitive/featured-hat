@@ -8,6 +8,7 @@ import { EmoteOptions } from 'simple-tmi-emotes';
 import tmi from 'tmi.js';
 import { FaCheck, FaExternalLinkAlt, FaEye, FaEyeSlash } from 'react-icons/fa';
 import { DriftDBProvider, useSharedState } from 'driftdb-react';
+import MobileLandingPage from '@/components/MobilePage';
 
 const TWITCH_CHANNEL = 'EverythingNowShow';
 
@@ -45,6 +46,23 @@ function IndexPage() {
   const [message, setMessage] = useSharedState('hat-message', {});
   const [isDisplayMessageVisible, setIsDisplayMessageVisible] = useSharedState('hat-message-visible', false);
   const [viewerUrl, setViewerUrl] = useState<string | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+        setIsMobile(window.innerWidth <= 768);
+    };
+
+    // Check once on mount
+    handleResize();
+
+    // Add event listener
+    window.addEventListener('resize', handleResize);
+
+    // Clean up
+    return () => window.removeEventListener('resize', handleResize);
+}, []);
+
 
   useEffect(() => {
     const savedChannel = window.localStorage.getItem('twitchChannel');
@@ -162,6 +180,10 @@ function IndexPage() {
       client.disconnect();
     };
   }, [isChannelLoaded, inputChannel]);
+
+  if (isMobile) {
+    return <MobileLandingPage />;
+}
 
   return (
     <div style={{ display: 'flex', height: '93vh' }}>
