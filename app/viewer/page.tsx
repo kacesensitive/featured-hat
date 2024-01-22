@@ -25,7 +25,7 @@ function ViewerPage() {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            backgroundColor: 'black',
+            backgroundColor: 'transparent',
         }}>
             {isDisplayMessageVisible && (
                 <motion.div
