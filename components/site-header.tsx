@@ -40,10 +40,12 @@ export function SiteHeader() {
                 <DialogHeader>
                   <DialogTitle>How does it work?</DialogTitle>
                   <DialogDescription>
-                    Left is your chat, bottom right is the queue, top right is the Display zone.
-                    Click a chat to add it to the queue, click a queue item to display it. 
-                    You can toggle the display zone on and off with the button in the bottom right.
-                    Right click a queue item to remove it from the queue.
+                    Change the channel name in the bottom right input box.{<br />}
+                    Left is your chat, bottom right is the queue, top right is the Display zone.{<br />}
+                    Click a chat to add it to the queue, click a queue item to display it. {<br />}
+                    You can toggle the display zone on and off with the button in the bottom right.{<br />}
+                    Right click a queue item to remove it from the queue.{<br />}
+                    Go to the link by clicking the button in the top left of the Display zone for a dedicated page.
                   </DialogDescription>
                 </DialogHeader>
               </DialogContent>

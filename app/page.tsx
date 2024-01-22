@@ -6,11 +6,12 @@ import { motion } from 'framer-motion';
 import React, { useState, useEffect, useRef } from 'react';
 import { EmoteOptions } from 'simple-tmi-emotes';
 import tmi from 'tmi.js';
-import { FaCheck, FaEye, FaEyeSlash } from 'react-icons/fa';
+import { FaCheck, FaExternalLinkAlt, FaEye, FaEyeSlash } from 'react-icons/fa';
+import { DriftDBProvider, useSharedState } from 'driftdb-react';
 
 const TWITCH_CHANNEL = 'EverythingNowShow';
 
-interface Message {
+export interface Message {
   id: string | undefined;
   username: string | undefined;
   twitch: string | undefined;
@@ -34,19 +35,24 @@ const options: EmoteOptions = {
   scale: '1.0',
 };
 
-export default function IndexPage() {
+function IndexPage() {
   const [messages, setMessages]: any = useState([]);
   const [queue, setQueue] = useState<any[]>([]);
   const [displayMessage, setDisplayMessage] = useState<any | null>(null);
-  const [isDisplayMessageVisible, setIsDisplayMessageVisible] = useState(true);
   const [selectedQueueMessageId, setSelectedQueueMessageId] = useState<string | undefined>(undefined);
   const [inputChannel, setInputChannel] = useState<string>(TWITCH_CHANNEL);
   const [isChannelLoaded, setIsChannelLoaded] = useState(false);
+  const [message, setMessage] = useSharedState('hat-message', {});
+  const [isDisplayMessageVisible, setIsDisplayMessageVisible] = useSharedState('hat-message-visible', false);
+  const [viewerUrl, setViewerUrl] = useState<string | null>(null);
 
   useEffect(() => {
     const savedChannel = window.localStorage.getItem('twitchChannel');
     setInputChannel(savedChannel || TWITCH_CHANNEL);
     setIsChannelLoaded(true);
+    const url = new URL(window.location.href);
+    const room = url.searchParams.get('_driftdb_room');
+    setViewerUrl(url.origin + '/viewer?_driftdb_room=' + room);
   }, []);
 
   const chatContainerRef = useRef<HTMLDivElement>(null);
@@ -67,11 +73,13 @@ export default function IndexPage() {
   };
 
   const displayQueueMessage = (message: Message) => {
+    setMessage(message);
     setDisplayMessage(message);
     setSelectedQueueMessageId(message.id);
   };
 
   const toggleDisplayMessage = () => {
+    
     setIsDisplayMessageVisible(!isDisplayMessageVisible);
   };
 
@@ -285,6 +293,11 @@ export default function IndexPage() {
             </motion.div>
           )}
         </div>
+        <div style={{ position: 'absolute', height: '40px', right: '10px', display: 'flex', alignItems: 'center' }}>
+          <a href={viewerUrl || ''} target="_blank" rel="noreferrer">
+            <FaExternalLinkAlt size={30} style={{ cursor: 'pointer' }} />
+          </a>
+        </div>
 
         <div style={{ flex: 1, border: '1px solid grey', overflowY: 'auto' }}>
           <div style={{ padding: '10px', fontWeight: 'bold' }}>Queue</div>
@@ -376,7 +389,6 @@ export default function IndexPage() {
               placeholder="Enter Twitch channel"
               style={{ marginRight: '10px', padding: '5px' }}
             />
-            <FaCheck size={30} onClick={handleChannelChange} style={{ cursor: 'pointer' }} />
           </div>
           <motion.div
             whileHover={{ scale: 1.1 }}
@@ -393,5 +405,15 @@ export default function IndexPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+
+export default function Index() {
+  const dbUrl = "https://api.jamsocket.live/db/IB4pCl9ESAW6jK3IwIw4/";
+  return (
+      <DriftDBProvider api={dbUrl}>
+          <IndexPage />
+      </DriftDBProvider>
   );
 }
