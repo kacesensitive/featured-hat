@@ -2,7 +2,7 @@
 
 import { isDark, lightenColor, safeParse } from '@/lib/utils';
 import Autolinker from 'autolinker';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import React, { useState, useEffect, useRef } from 'react';
 import { EmoteOptions } from 'simple-tmi-emotes';
 import tmi from 'tmi.js';
@@ -50,7 +50,7 @@ function IndexPage() {
 
   useEffect(() => {
     const handleResize = () => {
-        setIsMobile(window.innerWidth <= 768);
+      setIsMobile(window.innerWidth <= 768);
     };
 
     // Check once on mount
@@ -61,7 +61,7 @@ function IndexPage() {
 
     // Clean up
     return () => window.removeEventListener('resize', handleResize);
-}, []);
+  }, []);
 
 
   useEffect(() => {
@@ -183,7 +183,7 @@ function IndexPage() {
 
   if (isMobile) {
     return <MobileLandingPage />;
-}
+  }
 
   return (
     <div style={{ display: 'flex', height: '93vh' }}>
@@ -255,71 +255,72 @@ function IndexPage() {
         ))}
       </div>
       <div style={{ width: '50%', display: 'flex', flexDirection: 'column' }}>
-        <div style={{ flex: 1, border: '1px solid grey', padding: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ flex: 1, height: '200px', border: '1px solid grey', padding: '10px', alignItems: 'center', justifyContent: 'center', display: 'flex' }}>
           {/* Display Zone */}
-          {displayMessage && isDisplayMessageVisible && (
-            <motion.div
-              key={displayMessage.id}
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -50 }}
-              transition={{ duration: 0.5 }}
-              style={{
-                display: "flex",
-                flexDirection: 'column',
-                alignItems: "flex-start",
-                justifyContent: "flex-start",
-                padding: "10px",
-                backgroundColor: "black",
-                fontSize: emojiSize,
-                maxWidth: '580px',
-                width: '100%',
-                cursor: 'pointer',
-              }}
-            >
-              <div style={{
-                alignSelf: 'flex-start',
-                width: '100%',
-                display: 'flex',
-                justifyContent: 'flex-start',
-                paddingRight: '10px',
-              }}>
-                <span className="username" style={{
-                  fontWeight: "bold",
-                  color: displayMessage.color && isDark(displayMessage.color) ? lightenColor(displayMessage.color, 40) : displayMessage.color || "white",
+          <AnimatePresence mode="wait">
+            {displayMessage && isDisplayMessageVisible && (
+              <motion.div
+                key={displayMessage.id}
+                initial={{ y: 300, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: -300, opacity: 0 }}
+                style={{
+                  display: "flex",
+                  flexDirection: 'column',
+                  alignItems: "flex-start",
+                  justifyContent: "flex-start",
+                  padding: "10px",
+                  backgroundColor: "black",
                   fontSize: emojiSize,
+                  maxWidth: '580px',
+                  width: '100%',
+                  cursor: 'pointer',
+                }}
+              >
+                <div style={{
+                  alignSelf: 'flex-start',
+                  width: '100%',
+                  display: 'flex',
+                  justifyContent: 'flex-start',
+                  paddingRight: '10px',
+                }}>
+                  <span className="username" style={{
+                    fontWeight: "bold",
+                    color: displayMessage.color && isDark(displayMessage.color) ? lightenColor(displayMessage.color, 40) : displayMessage.color || "white",
+                    fontSize: emojiSize,
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                  }}>{displayMessage.user + ':'}</span>
+                </div>
+                <div style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  margin: '0 auto',
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
-                  whiteSpace: 'nowrap',
-                }}>{displayMessage.user + ':'}</span>
-              </div>
-              <div style={{
-                display: 'flex',
-                flexDirection: 'row',
-                margin: '0 auto',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                WebkitLineClamp: 3,
-                WebkitBoxOrient: 'vertical',
-                textAlign: 'center',
-                padding: '0 10px',
-                width: '100%',
-              }}>
-                <span className="message" dangerouslySetInnerHTML={{
-                  __html: Autolinker.link(safeParse(displayMessage.message || '-', [], options), {
-                    className: 'apple',
-                  }),
-                }} style={{ fontSize: emojiSize }} />
-              </div>
-              <div style={{
-                bottom: '0',
-                left: '0',
-                width: '100%',
-                height: '4px',
-                backgroundColor: displayMessage.color || "white",
-              }}></div>
-            </motion.div>
-          )}
+                  WebkitLineClamp: 3,
+                  WebkitBoxOrient: 'vertical',
+                  textAlign: 'center',
+                  padding: '0 10px',
+                  width: '100%',
+                }}>
+                  <span className="message" dangerouslySetInnerHTML={{
+                    __html: Autolinker.link(safeParse(displayMessage.message || '-', [], options), {
+                      className: 'apple',
+                    }),
+                  }} style={{ fontSize: emojiSize }} />
+                </div>
+                <div style={{
+                  bottom: '0',
+                  left: '0',
+                  width: '100%',
+                  height: '4px',
+                  backgroundColor: displayMessage.color || "white",
+                }}></div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
         <div style={{ position: 'absolute', height: '40px', right: '10px', display: 'flex', alignItems: 'center' }}>
           <a href={viewerUrl || ''} target="_blank" rel="noreferrer">
