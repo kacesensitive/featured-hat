@@ -189,13 +189,14 @@ function IndexPage() {
     <div style={{ display: 'flex', height: '93vh' }}>
       <div style={{ width: '50%', border: '1px solid grey', overflowY: 'auto' }} ref={chatContainerRef}>
         <div style={{ padding: '10px', fontWeight: 'bold' }}>Chat</div>
+        <AnimatePresence mode="sync">
         {messages.map((msg: any, index: number) => (
           <motion.div
             key={msg.id || index}
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -50 }}
-            transition={{ duration: 0.5 }}
+            initial={{ opacity: 0, x: -200 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 200 }}
+            transition={{ duration: 0.1 }}
             onClick={() => addToQueue(msg)}
             style={{
               display: "flex",
@@ -253,6 +254,7 @@ function IndexPage() {
             }}></div>
           </motion.div>
         ))}
+      </AnimatePresence>
       </div>
       <div style={{ width: '50%', display: 'flex', flexDirection: 'column' }}>
         <div style={{ flex: 1, height: '200px', border: '1px solid grey', padding: '10px', alignItems: 'center', justifyContent: 'center', display: 'flex' }}>
