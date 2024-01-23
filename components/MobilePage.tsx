@@ -2,7 +2,6 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const MobileLandingPage: React.FC = () => {
-  // Animation variants
   const containerVariants = {
     hidden: { scale: 0.95, opacity: 0 },
     visible: {

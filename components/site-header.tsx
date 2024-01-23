@@ -50,7 +50,7 @@ export function SiteHeader() {
 
                     Right click a queue item to remove it from the queue.{<br />}{<br />}
 
-                    Go to the link by clicking the button in the top right of the Display zone for a dedicated page.{<br />}{<br />}
+                    Go to the link by clicking the button in the top right of the Display zone for a dedicated page. Or copy the link to be used as a browser source in OBS.{<br />}{<br />}
 
                     For more information, visit the <a style={{ color: 'lightblue', fontWeight: 'bolder' }} href="https://github.com/kacesensitive/featured-hat/blob/main/HOWITWORKS.md" target="_blank" rel="noreferrer">How-To Page</a>.
                   </DialogDescription>

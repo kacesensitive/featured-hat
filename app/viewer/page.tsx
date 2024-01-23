@@ -18,7 +18,6 @@ function ViewerPage() {
     const [isLongMessage, setIsLongMessage] = useState(false);
 
     useEffect(() => {
-        // Assuming an average character per line limit, adjust as needed
         const charLimitPerLine = 40; 
         const lineLimit = 4;
         const charLimit = charLimitPerLine * lineLimit;

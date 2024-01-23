@@ -10,7 +10,7 @@ import { FaCheck, FaCopy, FaExternalLinkAlt, FaEye, FaEyeSlash } from 'react-ico
 import { DriftDBProvider, useSharedState } from 'driftdb-react';
 import MobileLandingPage from '@/components/MobilePage';
 
-const TWITCH_CHANNEL = 'EverythingNowShow';
+const TWITCH_CHANNEL = '';
 
 export interface Message {
   id: string | undefined;
@@ -65,23 +65,23 @@ function IndexPage() {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
     };
-
-    // Check once on mount
     handleResize();
-
-    // Add event listener
     window.addEventListener('resize', handleResize);
-
-    // Clean up
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
 
   useEffect(() => {
     const savedChannel = window.localStorage.getItem('twitchChannel');
-    setInputChannel(savedChannel || TWITCH_CHANNEL);
+    if (savedChannel) {
+      setInputChannel(savedChannel);
+    }
     setIsChannelLoaded(true);
   }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem('twitchChannel', inputChannel);
+  }, [inputChannel]);
 
   useEffect(() => {
     // delay for 2 seconds to allow the viewer to load
@@ -195,183 +195,19 @@ function IndexPage() {
 
   return (
     <div style={{ display: 'flex', height: '91vh', paddingTop: '2vh' }}>
-      <div style={{ width: '50%', borderRight: '1px solid grey', overflowY: 'auto' }} ref={chatContainerRef}>
-        <div style={{ padding: '10px', fontWeight: 'bold' }}>Chat</div>
-        <AnimatePresence mode="sync">
-          {messages.map((msg: any, index: number) => (
-            <motion.div
-              key={msg.id || index}
-              initial={{ opacity: 0, x: -200 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 200 }}
-              transition={{ duration: 0.1 }}
-              onClick={() => addToQueue(msg)}
-              style={{
-                display: "flex",
-                flexDirection: 'column',
-                alignItems: "center",
-                justifyContent: "center",
-                padding: "10px",
-                backgroundColor: "black",
-                fontSize: '16px',
-                maxWidth: '100%',
-                minWidth: '100%',
-                cursor: 'pointer',
-              }}
-            >
-              <div style={{
-                alignSelf: 'flex-start',
-                width: '100%',
-                display: 'flex',
-                justifyContent: 'flex-start',
-                paddingRight: '10px',
-              }}>
-                <span className="username" style={{
-                  fontWeight: "bold",
-                  color: msg.color && isDark(msg.color) ? lightenColor(msg.color, 40) : msg.color || "white",
-                  fontSize: '16px',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  whiteSpace: 'nowrap',
-                }}>{msg.user + ':'}</span>
-              </div>
-              <div style={{
-                display: 'flex',
-                flexDirection: 'row',
-                maxWidth: '580px',
-                margin: '0 auto',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                WebkitLineClamp: 3,
-                WebkitBoxOrient: 'vertical',
-                textAlign: 'left',
-                padding: '0 10px',
-              }}>
-                <span dangerouslySetInnerHTML={{
-                  __html: Autolinker.link(safeParse(msg.message || '-', [], options), {
-                    className: 'apple',
-                  }),
-                }} style={{ fontSize: '16px' }} />
-              </div>
-              <div style={{
-                bottom: '0',
-                left: '0',
-                width: '100%',
-                height: '4px',
-                backgroundColor: msg.color || "white",
-              }}></div>
-            </motion.div>
-          ))}
-        </AnimatePresence>
-      </div>
-      <div style={{ width: '50%', display: 'flex', flexDirection: 'column' }}>
-        <div style={{ flex: 1, height: '200px', borderBottom: '1px solid grey', padding: '10px', alignItems: 'center', justifyContent: 'center', display: 'flex' }}>
-          {/* Display Zone */}
-          <AnimatePresence mode="wait">
-            {displayMessage && isDisplayMessageVisible && (
+      <AnimatePresence>
+        <motion.div initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }} style={{ width: '50%', borderRight: '1px solid grey', overflowY: 'auto' }} ref={chatContainerRef}>
+          <div style={{ padding: '10px', fontWeight: 'bold' }}>Chat</div>
+          <AnimatePresence mode="sync">
+            {messages.map((msg: any, index: number) => (
               <motion.div
-                key={displayMessage.id}
-                initial={{ y: 300, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: -300, opacity: 0 }}
-                style={{
-                  display: "flex",
-                  flexDirection: 'column',
-                  alignItems: "flex-start",
-                  justifyContent: "flex-start",
-                  padding: "10px",
-                  backgroundColor: "black",
-                  fontSize: emojiSize,
-                  maxWidth: '580px',
-                  width: '100%',
-                  cursor: 'pointer',
-                }}
-              >
-                <div style={{
-                  alignSelf: 'flex-start',
-                  width: '100%',
-                  display: 'flex',
-                  justifyContent: 'flex-start',
-                  paddingRight: '10px',
-                }}>
-                  <span className="username" style={{
-                    fontWeight: "bold",
-                    color: displayMessage.color && isDark(displayMessage.color) ? lightenColor(displayMessage.color, 40) : displayMessage.color || "white",
-                    fontSize: emojiSize,
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap',
-                  }}>{displayMessage.user + ':'}</span>
-                </div>
-                <div style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  margin: '0 auto',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  WebkitLineClamp: 3,
-                  WebkitBoxOrient: 'vertical',
-                  textAlign: 'center',
-                  padding: '0 10px',
-                  width: '100%',
-                }}>
-                  <span className="message" dangerouslySetInnerHTML={{
-                    __html: Autolinker.link(safeParse(displayMessage.message || '-', [], options), {
-                      className: 'apple',
-                    }),
-                  }} style={{ fontSize: emojiSize }} />
-                </div>
-                <div style={{
-                  bottom: '0',
-                  left: '0',
-                  width: '100%',
-                  height: '4px',
-                  backgroundColor: displayMessage.color || "white",
-                }}></div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-        <div style={{ position: 'absolute', height: '40px', right: '10px', display: 'flex', alignItems: 'center' }}>
-          <a href={viewerUrl || ''} target="_blank" rel="noreferrer">
-            <FaExternalLinkAlt size={30} style={{ cursor: 'pointer' }} />
-          </a>
-          <motion.div
-            whileHover={{ scale: 1.1 }}
-            style={{
-              position: 'absolute',
-              right: '50px',
-              cursor: 'pointer',
-            }}
-            onClick={handleCopy}
-          >
-            {copied ? <FaCheck size={30} color="green" /> : <FaCopy size={30} />}
-          </motion.div>
-        </div>
-
-        <div style={{ flex: 1, overflowY: 'auto' }}>
-          <div style={{ padding: '10px', fontWeight: 'bold' }}>Queue</div>
-          {/* Queue */}
-          {queue.map(msg => (
-            <div
-              key={msg.id}
-              onClick={(e) => {
-                e.preventDefault();
-                displayQueueMessage(msg)
-              }
-              }
-              onContextMenu={(e) => {
-                e.preventDefault();
-                removeFromQueue(msg.id);
-              }}
-              style={{ cursor: 'pointer', padding: '10px', margin: '5px' }}
-            >
-              <motion.div
-                key={msg.id}
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -50 }}
-                transition={{ duration: 0.5 }}
+                key={msg.id || index}
+                initial={{ opacity: 0, x: -200 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 200 }}
+                transition={{ duration: 0.1 }}
                 onClick={() => addToQueue(msg)}
                 style={{
                   display: "flex",
@@ -380,12 +216,12 @@ function IndexPage() {
                   justifyContent: "center",
                   padding: "10px",
                   backgroundColor: "black",
-                  fontSize: emojiSize,
+                  fontSize: '16px',
                   maxWidth: '100%',
                   minWidth: '100%',
                   cursor: 'pointer',
-                  border: selectedQueueMessageId === msg.id ? '2px dotted white' : 'none',
                 }}
+                whileHover={{ backgroundColor: '#464646' }}
               >
                 <div style={{
                   alignSelf: 'flex-start',
@@ -397,7 +233,7 @@ function IndexPage() {
                   <span className="username" style={{
                     fontWeight: "bold",
                     color: msg.color && isDark(msg.color) ? lightenColor(msg.color, 40) : msg.color || "white",
-                    fontSize: emojiSize,
+                    fontSize: '16px',
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
                     whiteSpace: 'nowrap',
@@ -415,11 +251,11 @@ function IndexPage() {
                   textAlign: 'left',
                   padding: '0 10px',
                 }}>
-                  <span className="message" dangerouslySetInnerHTML={{
+                  <span dangerouslySetInnerHTML={{
                     __html: Autolinker.link(safeParse(msg.message || '-', [], options), {
                       className: 'apple',
                     }),
-                  }} style={{ fontSize: emojiSize }} />
+                  }} style={{ fontSize: '16px' }} />
                 </div>
                 <div style={{
                   bottom: '0',
@@ -429,31 +265,242 @@ function IndexPage() {
                   backgroundColor: msg.color || "white",
                 }}></div>
               </motion.div>
-            </div>
-          ))}
-          <div style={{ position: 'absolute', bottom: '10px', right: '60px', display: 'flex', alignItems: 'center' }}>
-            <input
-              type="text"
-              value={inputChannel}
-              onChange={(e) => setInputChannel(e.target.value)}
-              placeholder="Enter Twitch channel"
-              style={{ marginRight: '10px', padding: '5px' }}
-            />
+            ))}
+          </AnimatePresence>
+        </motion.div>
+        <motion.div initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }} style={{ width: '50%', display: 'flex', flexDirection: 'column' }}>
+          <div style={{ flex: 1, height: '200px', borderBottom: '1px solid grey', padding: '10px', alignItems: 'center', justifyContent: 'center', display: 'flex' }}>
+            {/* Display Zone */}
+            <AnimatePresence mode="wait">
+              {displayMessage && isDisplayMessageVisible && (
+                <motion.div
+                  key={displayMessage.id}
+                  initial={{ y: 300, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: -300, opacity: 0 }}
+                  style={{
+                    display: "flex",
+                    flexDirection: 'column',
+                    alignItems: "flex-start",
+                    justifyContent: "flex-start",
+                    padding: "10px",
+                    backgroundColor: "black",
+                    fontSize: emojiSize,
+                    maxWidth: '580px',
+                    width: '100%',
+                    cursor: 'pointer',
+                  }}
+                >
+                  <div style={{
+                    alignSelf: 'flex-start',
+                    width: '100%',
+                    display: 'flex',
+                    justifyContent: 'flex-start',
+                    paddingRight: '10px',
+                  }}>
+                    <span className="username" style={{
+                      fontWeight: "bold",
+                      color: displayMessage.color && isDark(displayMessage.color) ? lightenColor(displayMessage.color, 40) : displayMessage.color || "white",
+                      fontSize: emojiSize,
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      whiteSpace: 'nowrap',
+                    }}>{displayMessage.user + ':'}</span>
+                  </div>
+                  <div style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    margin: '0 auto',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    WebkitLineClamp: 3,
+                    WebkitBoxOrient: 'vertical',
+                    textAlign: 'center',
+                    padding: '0 10px',
+                    width: '100%',
+                  }}>
+                    <span className="message" dangerouslySetInnerHTML={{
+                      __html: Autolinker.link(safeParse(displayMessage.message || '-', [], options), {
+                        className: 'apple',
+                      }),
+                    }} style={{ fontSize: emojiSize }} />
+                  </div>
+                  <div style={{
+                    bottom: '0',
+                    left: '0',
+                    width: '100%',
+                    height: '4px',
+                    backgroundColor: displayMessage.color || "white",
+                  }}></div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
-          <motion.div
-            whileHover={{ scale: 1.1 }}
-            style={{
+          <div style={{ position: 'absolute', height: '40px', right: '10px', display: 'flex', alignItems: 'center' }}>
+            <AnimatePresence>
+              <motion.div
+                whileHover={{ scale: 1.1 }}
+                initial={{ y: 300, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: -300, opacity: 0 }}
+                style={{
+                  position: 'absolute',
+                  right: '10px',
+                  cursor: 'pointer',
+                  backgroundColor: 'black',
+                  padding: '10px',
+                  borderRadius: '50%',
+                  border: '2px solid white',
+                }}
+              >
+                <a href={viewerUrl || ''} target="_blank" rel="noreferrer">
+                  <FaExternalLinkAlt size={30} style={{ cursor: 'pointer' }} />
+                </a>
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.1 }}
+                style={{
+                  position: 'absolute',
+                  right: '70px',
+                  cursor: 'pointer',
+                  backgroundColor: 'black',
+                  padding: '10px',
+                  borderRadius: '50%',
+                  border: '2px solid white',
+                }}
+                initial={{ y: 300, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: -300, opacity: 0 }}
+                onClick={handleCopy}
+              >
+                {copied ? <FaCheck size={30} color="#37FF00" /> : <FaCopy size={30} />}
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          <div style={{ flex: 1, overflowY: 'auto' }}>
+            <div style={{ padding: '10px', fontWeight: 'bold' }}>Queue</div>
+            {/* Queue */}
+            {queue.map(msg => (
+              <div
+                key={msg.id}
+                onClick={(e) => {
+                  e.preventDefault();
+                  displayQueueMessage(msg)
+                }
+                }
+                onContextMenu={(e) => {
+                  e.preventDefault();
+                  removeFromQueue(msg.id);
+                }}
+                style={{ cursor: 'pointer', padding: '10px', margin: '5px' }}
+              >
+                <motion.div
+                  key={msg.id}
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -50 }}
+                  transition={{ duration: 0.5 }}
+                  onClick={() => addToQueue(msg)}
+                  style={{
+                    display: "flex",
+                    flexDirection: 'column',
+                    alignItems: "center",
+                    justifyContent: "center",
+                    padding: "10px",
+                    backgroundColor: "black",
+                    fontSize: emojiSize,
+                    maxWidth: '100%',
+                    minWidth: '100%',
+                    cursor: 'pointer',
+                    border: selectedQueueMessageId === msg.id ? '2px dotted white' : 'none',
+                  }}
+                  whileHover={{ backgroundColor: '#464646' }}
+                >
+                  <div style={{
+                    alignSelf: 'flex-start',
+                    width: '100%',
+                    display: 'flex',
+                    justifyContent: 'flex-start',
+                    paddingRight: '10px',
+                  }}>
+                    <span className="username" style={{
+                      fontWeight: "bold",
+                      color: msg.color && isDark(msg.color) ? lightenColor(msg.color, 40) : msg.color || "white",
+                      fontSize: emojiSize,
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      whiteSpace: 'nowrap',
+                    }}>{msg.user + ':'}</span>
+                  </div>
+                  <div style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    maxWidth: '580px',
+                    margin: '0 auto',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    WebkitLineClamp: 3,
+                    WebkitBoxOrient: 'vertical',
+                    textAlign: 'left',
+                    padding: '0 10px',
+                  }}>
+                    <span className="message" dangerouslySetInnerHTML={{
+                      __html: Autolinker.link(safeParse(msg.message || '-', [], options), {
+                        className: 'apple',
+                      }),
+                    }} style={{ fontSize: emojiSize }} />
+                  </div>
+                  <div style={{
+                    bottom: '0',
+                    left: '0',
+                    width: '100%',
+                    height: '4px',
+                    backgroundColor: msg.color || "white",
+                  }}></div>
+                </motion.div>
+              </div>
+            ))}
+            <div style={{
               position: 'absolute',
-              bottom: '10px',
-              right: '10px',
-              cursor: 'pointer',
-            }}
-            onClick={toggleDisplayMessage}
-          >
-            {isDisplayMessageVisible ? <FaEye size={30} /> : <FaEyeSlash size={30} />}
-          </motion.div>
-        </div>
-      </div>
+              bottom: '28px',
+              right: '80px',
+              display: 'flex',
+              alignItems: 'center',
+              backgroundColor: 'black',
+              padding: '10px',
+              borderRadius: '50px',
+              border: '2px solid white'
+            }}>
+              <input
+                type="text"
+                value={inputChannel}
+                onChange={(e) => setInputChannel(e.target.value)}
+                placeholder="Enter Twitch channel"
+                style={{ padding: '5px', borderRadius: '50px'}}
+              />
+            </div>
+            <motion.div
+              whileHover={{ scale: 1.1 }}
+              style={{
+                position: 'absolute',
+                bottom: '30px',
+                right: '20px',
+                cursor: 'pointer',
+                backgroundColor: 'black',
+                padding: '10px',
+                borderRadius: '50%',
+                border: '2px solid white'
+              }}
+              onClick={toggleDisplayMessage}
+            >
+              {isDisplayMessageVisible ? <FaEye size={30} /> : <FaEyeSlash size={30} />}
+            </motion.div>
+          </div>
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 }
