@@ -40,12 +40,19 @@ export function SiteHeader() {
                 <DialogHeader>
                   <DialogTitle>How does it work?</DialogTitle>
                   <DialogDescription>
-                    Change the channel name in the bottom right input box.{<br />}
-                    Left is your chat, bottom right is the queue, top right is the Display zone.{<br />}
-                    Click a chat to add it to the queue, click a queue item to display it. {<br />}
-                    You can toggle the display zone on and off with the button in the bottom right.{<br />}
-                    Right click a queue item to remove it from the queue.{<br />}
-                    Go to the link by clicking the button in the top right of the Display zone for a dedicated page.
+                    Change the channel name in the bottom right input box.{<br />}{<br />}
+
+                    Left is your chat, bottom right is the queue, top right is the Display zone.{<br />}{<br />}
+
+                    Click a chat to add it to the queue, click a queue item to display it. {<br />}{<br />}
+
+                    You can toggle the display zone on and off with the button in the bottom right.{<br />}{<br />}
+
+                    Right click a queue item to remove it from the queue.{<br />}{<br />}
+
+                    Go to the link by clicking the button in the top right of the Display zone for a dedicated page.{<br />}{<br />}
+
+                    For more information, visit the <a style={{ color: 'lightblue', fontWeight: 'bolder' }} href="https://github.com/kacesensitive/featured-hat/blob/main/HOWITWORKS.md" target="_blank" rel="noreferrer">How-To Page</a>.
                   </DialogDescription>
                 </DialogHeader>
               <a href="https://www.buymeacoffee.com/kacesensitive" target="_blank" rel="noreferrer"><Image src="/default-red.png" alt="Buy Me A Coffee" height="41" width="174" /></a>
