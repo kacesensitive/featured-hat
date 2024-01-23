@@ -16,7 +16,7 @@ Right click a message to remove it from the queue.
 This simulates what is being shown in the browser source.
 Copy the link to the browser source and set that in OBS.
   
-# Set up
+# Setup
 
 ## Use your channel
 ![GIF 1](/public/name.gif)
