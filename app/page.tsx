@@ -186,8 +186,8 @@ function IndexPage() {
   }
 
   return (
-    <div style={{ display: 'flex', height: '93vh' }}>
-      <div style={{ width: '50%', border: '1px solid grey', overflowY: 'auto' }} ref={chatContainerRef}>
+    <div style={{ display: 'flex', height: '91vh', paddingTop: '2vh' }}>
+      <div style={{ width: '50%', borderRight: '1px solid grey', overflowY: 'auto' }} ref={chatContainerRef}>
         <div style={{ padding: '10px', fontWeight: 'bold' }}>Chat</div>
         <AnimatePresence mode="sync">
         {messages.map((msg: any, index: number) => (
@@ -257,7 +257,7 @@ function IndexPage() {
       </AnimatePresence>
       </div>
       <div style={{ width: '50%', display: 'flex', flexDirection: 'column' }}>
-        <div style={{ flex: 1, height: '200px', border: '1px solid grey', padding: '10px', alignItems: 'center', justifyContent: 'center', display: 'flex' }}>
+        <div style={{ flex: 1, height: '200px', borderBottom: '1px solid grey', padding: '10px', alignItems: 'center', justifyContent: 'center', display: 'flex' }}>
           {/* Display Zone */}
           <AnimatePresence mode="wait">
             {displayMessage && isDisplayMessageVisible && (
@@ -330,7 +330,7 @@ function IndexPage() {
           </a>
         </div>
 
-        <div style={{ flex: 1, border: '1px solid grey', overflowY: 'auto' }}>
+        <div style={{ flex: 1, overflowY: 'auto' }}>
           <div style={{ padding: '10px', fontWeight: 'bold' }}>Queue</div>
           {/* Queue */}
           {queue.map(msg => (
