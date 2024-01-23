@@ -4,6 +4,9 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
+  images: {
+    domains: ['cdn.buymeacoffee.com'],
+  },
 }
 
 export default nextConfig

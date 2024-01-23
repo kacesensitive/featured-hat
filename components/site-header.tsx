@@ -1,7 +1,6 @@
 "use client"
 import Link from 'next/link';
-import { useState } from 'react';
-import { FaQuestionCircle } from 'react-icons/fa'; // Importing the question mark icon
+import { FaQuestionCircle } from 'react-icons/fa';
 
 import { siteConfig } from '@/config/site';
 import { buttonVariants } from '@/components/ui/button';
@@ -15,6 +14,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+import Image from 'next/image';
 
 export function SiteHeader() {
 
@@ -48,6 +48,7 @@ export function SiteHeader() {
                     Go to the link by clicking the button in the top right of the Display zone for a dedicated page.
                   </DialogDescription>
                 </DialogHeader>
+              <a href="https://www.buymeacoffee.com/kacesensitive" target="_blank"><Image src="https://cdn.buymeacoffee.com/buttons/default-red.png" alt="Buy Me A Coffee" height="41" width="174" /></a>
               </DialogContent>
             </Dialog>
             <span className="sr-only">Help</span>

@@ -6,6 +6,7 @@ import { fontSans } from "@/lib/fonts"
 import { cn } from "@/lib/utils"
 import { SiteHeader } from "@/components/site-header"
 import { ThemeProvider } from "@/components/theme-provider"
+import Image from "next/image"
 
 export const metadata: Metadata = {
   title: {
@@ -29,6 +30,7 @@ interface RootLayoutProps {
 }
 
 export default function RootLayout({ children }: RootLayoutProps) {
+
   return (
     <>
       <html lang="en" suppressHydrationWarning>
@@ -45,6 +47,15 @@ export default function RootLayout({ children }: RootLayoutProps) {
               <div className="flex-1">{children}</div>
             </div>
           </ThemeProvider>
+          {/*foot stuck to the bottom of the page centered*/}
+          <footer className="absolute bottom-0 w-full text-center">
+            <p>
+              <a href="https://featuredhat.com" target="_blank" rel="noreferrer">
+                {siteConfig.name}
+              </a>{" "}
+              &copy; {new Date().getFullYear()}
+            </p>
+          </footer>
         </body>
       </html>
     </>
