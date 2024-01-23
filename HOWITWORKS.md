@@ -19,17 +19,20 @@ Copy the link to the browser source and set that in OBS.
 # Set up
 
 ## Use your channel
-In the bottom right input your channel name as it appears on Twitch.
 ![GIF 1](/public/name.gif)
+
+In the bottom right input your channel name as it appears on Twitch.
 
   
 
 ## Copy the link to your browser source
-Copy the link to your browser source page.
 ![GIF 2](/public/copy.gif)
+
+Copy the link to your browser source page.
 
   
 
 ## Set your OBS browser source
-Add the browser source to OBS, and you're done!
 ![GIF 3](/public/OBS.gif)
+
+Add the browser source to OBS, and you're done!

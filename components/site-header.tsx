@@ -48,7 +48,7 @@ export function SiteHeader() {
                     Go to the link by clicking the button in the top right of the Display zone for a dedicated page.
                   </DialogDescription>
                 </DialogHeader>
-              <a href="https://www.buymeacoffee.com/kacesensitive" target="_blank" rel="noreferrer"><Image src="https://cdn.buymeacoffee.com/buttons/default-red.png" alt="Buy Me A Coffee" height="41" width="174" /></a>
+              <a href="https://www.buymeacoffee.com/kacesensitive" target="_blank" rel="noreferrer"><Image src="/public/default-red.png" alt="Buy Me A Coffee" height="41" width="174" /></a>
               </DialogContent>
             </Dialog>
             <span className="sr-only">Help</span>
