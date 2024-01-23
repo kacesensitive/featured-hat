@@ -45,7 +45,7 @@ export function SiteHeader() {
                     Click a chat to add it to the queue, click a queue item to display it. {<br />}
                     You can toggle the display zone on and off with the button in the bottom right.{<br />}
                     Right click a queue item to remove it from the queue.{<br />}
-                    Go to the link by clicking the button in the top left of the Display zone for a dedicated page.
+                    Go to the link by clicking the button in the top right of the Display zone for a dedicated page.
                   </DialogDescription>
                 </DialogHeader>
               </DialogContent>
