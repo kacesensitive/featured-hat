@@ -20,17 +20,16 @@ Copy the link to the browser source and set that in OBS.
 
 ## Use your channel
 In the bottom right input your channel name as it appears on Twitch.
-
-<video width="320" height="240" controls>  <source src="/public/name-hat-video.mp4" type="video/mp4"> Your browser does not support the video tag. </video>
+![GIF 1](/public/name.gif)
 
   
 
 ## Copy the link to your browser source
-
-<video width="320" height="240" controls>  <source src="/public/copy-hat-video.mp4" type="video/mp4"> Your browser does not support the video tag. </video>
+Copy the link to your browser source page.
+![GIF 2](/public/copy.gif)
 
   
 
 ## Set your OBS browser source
-
-<video width="320" height="240" controls>  <source src="/public/OBS-hat-video.mp4" type="video/mp4"> Your browser does not support the video tag. </video>
+Add the browser source to OBS, and you're done!
+![GIF 3](/public/OBS.gif)
