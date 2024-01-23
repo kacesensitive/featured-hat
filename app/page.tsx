@@ -6,7 +6,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import React, { useState, useEffect, useRef } from 'react';
 import { EmoteOptions } from 'simple-tmi-emotes';
 import tmi from 'tmi.js';
-import { FaCheck, FaExternalLinkAlt, FaEye, FaEyeSlash } from 'react-icons/fa';
+import { FaCheck, FaCopy, FaExternalLinkAlt, FaEye, FaEyeSlash } from 'react-icons/fa';
 import { DriftDBProvider, useSharedState } from 'driftdb-react';
 import MobileLandingPage from '@/components/MobilePage';
 
@@ -47,6 +47,19 @@ function IndexPage() {
   const [isDisplayMessageVisible, setIsDisplayMessageVisible] = useSharedState('hat-message-visible', false);
   const [viewerUrl, setViewerUrl] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(viewerUrl || '');
+    setCopied(true);
+  };
+
+  useEffect(() => {
+    if (copied) {
+      const timer = setTimeout(() => setCopied(false), 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [copied]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -90,11 +103,6 @@ function IndexPage() {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
-
-  const handleChannelChange = () => {
-    window.localStorage.setItem('twitchChannel', inputChannel);
-    window.location.reload();
-  };
 
   const displayQueueMessage = (message: Message) => {
     setMessage(message);
@@ -190,71 +198,71 @@ function IndexPage() {
       <div style={{ width: '50%', borderRight: '1px solid grey', overflowY: 'auto' }} ref={chatContainerRef}>
         <div style={{ padding: '10px', fontWeight: 'bold' }}>Chat</div>
         <AnimatePresence mode="sync">
-        {messages.map((msg: any, index: number) => (
-          <motion.div
-            key={msg.id || index}
-            initial={{ opacity: 0, x: -200 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 200 }}
-            transition={{ duration: 0.1 }}
-            onClick={() => addToQueue(msg)}
-            style={{
-              display: "flex",
-              flexDirection: 'column',
-              alignItems: "center",
-              justifyContent: "center",
-              padding: "10px",
-              backgroundColor: "black",
-              fontSize: '16px',
-              maxWidth: '100%',
-              minWidth: '100%',
-              cursor: 'pointer',
-            }}
-          >
-            <div style={{
-              alignSelf: 'flex-start',
-              width: '100%',
-              display: 'flex',
-              justifyContent: 'flex-start',
-              paddingRight: '10px',
-            }}>
-              <span className="username" style={{
-                fontWeight: "bold",
-                color: msg.color && isDark(msg.color) ? lightenColor(msg.color, 40) : msg.color || "white",
+          {messages.map((msg: any, index: number) => (
+            <motion.div
+              key={msg.id || index}
+              initial={{ opacity: 0, x: -200 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 200 }}
+              transition={{ duration: 0.1 }}
+              onClick={() => addToQueue(msg)}
+              style={{
+                display: "flex",
+                flexDirection: 'column',
+                alignItems: "center",
+                justifyContent: "center",
+                padding: "10px",
+                backgroundColor: "black",
                 fontSize: '16px',
+                maxWidth: '100%',
+                minWidth: '100%',
+                cursor: 'pointer',
+              }}
+            >
+              <div style={{
+                alignSelf: 'flex-start',
+                width: '100%',
+                display: 'flex',
+                justifyContent: 'flex-start',
+                paddingRight: '10px',
+              }}>
+                <span className="username" style={{
+                  fontWeight: "bold",
+                  color: msg.color && isDark(msg.color) ? lightenColor(msg.color, 40) : msg.color || "white",
+                  fontSize: '16px',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap',
+                }}>{msg.user + ':'}</span>
+              </div>
+              <div style={{
+                display: 'flex',
+                flexDirection: 'row',
+                maxWidth: '580px',
+                margin: '0 auto',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
-                whiteSpace: 'nowrap',
-              }}>{msg.user + ':'}</span>
-            </div>
-            <div style={{
-              display: 'flex',
-              flexDirection: 'row',
-              maxWidth: '580px',
-              margin: '0 auto',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              WebkitLineClamp: 3,
-              WebkitBoxOrient: 'vertical',
-              textAlign: 'left',
-              padding: '0 10px',
-            }}>
-              <span dangerouslySetInnerHTML={{
-                __html: Autolinker.link(safeParse(msg.message || '-', [], options), {
-                  className: 'apple',
-                }),
-              }} style={{ fontSize: '16px' }} />
-            </div>
-            <div style={{
-              bottom: '0',
-              left: '0',
-              width: '100%',
-              height: '4px',
-              backgroundColor: msg.color || "white",
-            }}></div>
-          </motion.div>
-        ))}
-      </AnimatePresence>
+                WebkitLineClamp: 3,
+                WebkitBoxOrient: 'vertical',
+                textAlign: 'left',
+                padding: '0 10px',
+              }}>
+                <span dangerouslySetInnerHTML={{
+                  __html: Autolinker.link(safeParse(msg.message || '-', [], options), {
+                    className: 'apple',
+                  }),
+                }} style={{ fontSize: '16px' }} />
+              </div>
+              <div style={{
+                bottom: '0',
+                left: '0',
+                width: '100%',
+                height: '4px',
+                backgroundColor: msg.color || "white",
+              }}></div>
+            </motion.div>
+          ))}
+        </AnimatePresence>
       </div>
       <div style={{ width: '50%', display: 'flex', flexDirection: 'column' }}>
         <div style={{ flex: 1, height: '200px', borderBottom: '1px solid grey', padding: '10px', alignItems: 'center', justifyContent: 'center', display: 'flex' }}>
@@ -328,6 +336,17 @@ function IndexPage() {
           <a href={viewerUrl || ''} target="_blank" rel="noreferrer">
             <FaExternalLinkAlt size={30} style={{ cursor: 'pointer' }} />
           </a>
+          <motion.div
+            whileHover={{ scale: 1.1 }}
+            style={{
+              position: 'absolute',
+              right: '50px',
+              cursor: 'pointer',
+            }}
+            onClick={handleCopy}
+          >
+            {copied ? <FaCheck size={30} color="green" /> : <FaCopy size={30} />}
+          </motion.div>
         </div>
 
         <div style={{ flex: 1, overflowY: 'auto' }}>
