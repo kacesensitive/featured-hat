@@ -12,6 +12,12 @@ const options: EmoteOptions = {
     scale: '1.0',
 };
 
+const parseMessageWithEmotes = (msg: string, emotes: any) => {
+    let parsedMessage = safeParse(msg, emotes, options);
+    parsedMessage = parsedMessage.replace(/<img /g, '<img style="max-width:24px; max-height:24px; display:inline-block; vertical-align:middle;" ');
+    return parsedMessage;
+};
+
 function ViewerPage() {
     const [message,] = useSharedState<any>('hat-message', {});
     const [isDisplayMessageVisible,] = useSharedState('hat-message-visible', false);
@@ -58,7 +64,7 @@ function ViewerPage() {
                             justifyContent: "flex-start",
                             padding: "10px",
                             backgroundColor: "black",
-                            maxWidth: '700px',
+                            maxWidth: '90%',
                             width: '100%',
                             cursor: 'pointer',
                             fontSize: longMessageStyle.fontSize,
@@ -93,7 +99,7 @@ function ViewerPage() {
                             width: '100%',
                         }}>
                             <span className="message" dangerouslySetInnerHTML={{
-                                __html: Autolinker.link(safeParse(message.message || '-', [], options), {
+                                __html: Autolinker.link(parseMessageWithEmotes(message.message || '-', message.emotes), {
                                     className: 'apple',
                                 }),
                             }} style={{ fontSize: longMessageStyle.fontSize, }} />

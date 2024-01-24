@@ -36,6 +36,12 @@ const options: EmoteOptions = {
   scale: '1.0',
 };
 
+const parseMessageWithEmotes = (msg: string, emotes: any) => {
+  let parsedMessage = safeParse(msg, emotes, options);
+  parsedMessage = parsedMessage.replace(/<img /g, '<img style="max-width:24px; max-height:24px; display:inline-block; vertical-align:middle;" ');
+  return parsedMessage;
+};
+
 function IndexPage() {
   const [messages, setMessages]: any = useState([]);
   const [queue, setQueue] = useState<any[]>([]);
@@ -252,7 +258,7 @@ function IndexPage() {
                   padding: '0 10px',
                 }}>
                   <span dangerouslySetInnerHTML={{
-                    __html: Autolinker.link(safeParse(msg.message || '-', [], options), {
+                    __html: Autolinker.link(parseMessageWithEmotes(msg.message || '-', msg.emotes), {
                       className: 'apple',
                     }),
                   }} style={{ fontSize: '16px' }} />
@@ -322,7 +328,7 @@ function IndexPage() {
                     width: '100%',
                   }}>
                     <span className="message" dangerouslySetInnerHTML={{
-                      __html: Autolinker.link(safeParse(displayMessage.message || '-', [], options), {
+                      __html: Autolinker.link(parseMessageWithEmotes(displayMessage.message || '-', displayMessage.emotes), {
                         className: 'apple',
                       }),
                     }} style={{ fontSize: emojiSize }} />
@@ -448,7 +454,7 @@ function IndexPage() {
                     padding: '0 10px',
                   }}>
                     <span className="message" dangerouslySetInnerHTML={{
-                      __html: Autolinker.link(safeParse(msg.message || '-', [], options), {
+                      __html: Autolinker.link(parseMessageWithEmotes(msg.message || '-', msg.emotes), {
                         className: 'apple',
                       }),
                     }} style={{ fontSize: emojiSize }} />
