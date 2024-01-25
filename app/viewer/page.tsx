@@ -8,13 +8,13 @@ import { EmoteOptions } from "simple-tmi-emotes";
 
 const options: EmoteOptions = {
     format: 'default',
-    themeMode: 'light',
-    scale: '1.0',
+    themeMode: 'dark',
+    scale: '3.0',
 };
 
 const parseMessageWithEmotes = (msg: string, emotes: any) => {
     let parsedMessage = safeParse(msg, emotes, options);
-    parsedMessage = parsedMessage.replace(/<img /g, '<img style="max-width:24px; max-height:24px; display:inline-block; vertical-align:middle;" ');
+    parsedMessage = parsedMessage.replace(/<img /g, '<img style="max-width:38px; max-height:38px; display:inline-block; vertical-align:middle;" ');
     return parsedMessage;
 };
 

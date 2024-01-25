@@ -36,29 +36,41 @@ export function SiteHeader() {
               <DialogTrigger>
                 <FaQuestionCircle className="h-5 w-5" />
               </DialogTrigger>
-              <DialogContent>
+              <DialogContent style={{
+                maxHeight: '90%',
+                overflow: 'auto',
+              }}>
                 <DialogHeader>
                   <DialogTitle>How does it work?</DialogTitle>
                   <DialogDescription>
-                    Change the channel name in the bottom right input box.{<br />}{<br />}
-
-                    Left is your chat, bottom right is the queue, top right is the Display zone.{<br />}{<br />}
-
-                    Click a chat to add it to the queue, click a queue item to display it. {<br />}{<br />}
-
-                    You can toggle the display zone on and off with the button in the bottom right.{<br />}{<br />}
-
-                    Right click a queue item to remove it from the queue.{<br />}{<br />}
-
-                    Go to the link by clicking the button in the top right of the Display zone for a dedicated page. Or copy the link to be used as a browser source in OBS.{<br />}{<br />}
-
-                    For more information, visit the <a style={{ color: 'lightblue', fontWeight: 'bolder' }} href="https://github.com/kacesensitive/featured-hat/blob/main/HOWITWORKS.md" target="_blank" rel="noreferrer">How-To Page</a>.
                   </DialogDescription>
                 </DialogHeader>
-              <a href="https://www.buymeacoffee.com/kacesensitive" target="_blank" rel="noreferrer"><Image src="/default-red.png" alt="Buy Me A Coffee" height="41" width="174" /></a>
+                  Change the channel name in the bottom right input box.
+                  <Image src="/name.gif" alt="Description" style={{ paddingBottom: '2vh', display: 'block', margin: '0 auto' }} width={380} height={220} />
+
+                  Left is your chat, bottom right is the queue, top right is the Display zone.
+                  <Image src="/orientation.png" alt="Description" style={{ paddingBottom: '2vh', display: 'block', margin: '0 auto' }} width={380} height={220} />
+
+                  Click a chat to add it to the queue, click a queue item to display it.
+                  <Image src="/flow.png" alt="Description" style={{ paddingBottom: '2vh', display: 'block', margin: '0 auto' }} width={380} height={220} />
+
+                  You can toggle the display zone on and off with the button in the bottom right.
+                  <Image src="/hide.png" alt="Description" style={{ paddingBottom: '2vh', display: 'block', margin: '0 auto' }} width={380} height={220} />
+
+                  Right click a queue item to remove it from the queue.
+                  <Image src="/remove.gif" alt="Description" style={{ paddingBottom: '2vh', display: 'block', margin: '0 auto' }} width={380} height={220} />
+
+                  Go to the link by clicking the button in the top right of the Display zone for a dedicated page. Or copy the link to be used as a browser source in OBS.
+                  <Image src="/copy.gif" alt="Description" style={{ paddingBottom: '2vh', display: 'block', margin: '0 auto' }} width={380} height={220} />
+
+                  Set your browser source to in OBS and you're good to go!
+                  <Image src="/OBS.gif" alt="Description" style={{ paddingBottom: '2vh', display: 'block', margin: '0 auto' }} width={380} height={220} />
+                  <a style={{ color: 'lightblue', fontWeight: 'bolder', margin: '0 auto' }} href="https://github.com/kacesensitive/featured-hat/blob/main/HOWITWORKS.md" target="_blank" rel="noreferrer">More Info</a>
+                  <a style={{ margin: '0 auto' }} href="https://www.buymeacoffee.com/kacesensitive" target="_blank" rel="noreferrer">
+                    <Image src="/default-red.png" alt="Buy Me A Coffee" height="41" width="174" />
+                  </a>
               </DialogContent>
             </Dialog>
-            <span className="sr-only">Help</span>
           </nav>
         </div>
       </div>
