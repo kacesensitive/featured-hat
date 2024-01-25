@@ -46,25 +46,25 @@ export function SiteHeader() {
                   </DialogDescription>
                 </DialogHeader>
                   Change the channel name in the bottom right input box.
-                  <Image src="/name2.gif" alt="Description" style={{ paddingBottom: '2vh', display: 'block', margin: '0 auto' }} width={380} height={220} />
+                  <Image placeholder="blur" blurDataURL='/name2.gif' src="/name2.gif" alt="Description" style={{ paddingBottom: '2vh', display: 'block', margin: '0 auto' }} width={380} height={220} />
 
                   Left is your chat, bottom right is the queue, top right is the Display zone.
-                  <Image src="/orientation.png" alt="Description" style={{ paddingBottom: '2vh', display: 'block', margin: '0 auto' }} width={380} height={220} />
+                  <Image placeholder="blur" blurDataURL='/orientation.png' src="/orientation.png" alt="Description" style={{ paddingBottom: '2vh', display: 'block', margin: '0 auto' }} width={380} height={220} />
 
                   Click a chat to add it to the queue, click a queue item to display it.
-                  <Image src="/flow.png" alt="Description" style={{ paddingBottom: '2vh', display: 'block', margin: '0 auto' }} width={380} height={220} />
+                  <Image placeholder="blur" blurDataURL='/flow.png' src="/flow.png" alt="Description" style={{ paddingBottom: '2vh', display: 'block', margin: '0 auto' }} width={380} height={220} />
 
                   You can toggle the display on and off with the button in the bottom right (this does apply to the viewer page as well).
-                  <Image src="/hide.png" alt="Description" style={{ paddingBottom: '2vh', display: 'block', margin: '0 auto' }} width={380} height={220} />
+                  <Image placeholder="blur" blurDataURL='/hide.png' src="/hide.png" alt="Description" style={{ paddingBottom: '2vh', display: 'block', margin: '0 auto' }} width={380} height={220} />
 
                   Right click a queue item to remove it from the queue.
-                  <Image src="/remove.gif" alt="Description" style={{ paddingBottom: '2vh', display: 'block', margin: '0 auto' }} width={380} height={220} />
+                  <Image placeholder="blur" blurDataURL='/remove.gif' src="/remove.gif" alt="Description" style={{ paddingBottom: '2vh', display: 'block', margin: '0 auto' }} width={380} height={220} />
 
                   Go to the link by clicking the button in the top right of the Display zone for a dedicated page. Or copy the link to be used as a browser source in OBS.
-                  <Image src="/copy2.gif" alt="Description" style={{ paddingBottom: '2vh', display: 'block', margin: '0 auto' }} width={380} height={220} />
+                  <Image placeholder="blur" blurDataURL='/copy2.gif' src="/copy2.gif" alt="Description" style={{ paddingBottom: '2vh', display: 'block', margin: '0 auto' }} width={380} height={220} />
 
                   Set your browser source to in OBS and get to streaming!
-                  <Image src="/OBS2.gif" alt="Description" style={{ paddingBottom: '2vh', display: 'block', margin: '0 auto' }} width={380} height={220} />
+                  <Image placeholder="blur" blurDataURL='/OBS2.gif' src="/OBS2.gif" alt="Description" style={{ paddingBottom: '2vh', display: 'block', margin: '0 auto' }} width={380} height={220} />
                   <a style={{ color: 'lightblue', fontWeight: 'bolder', margin: '0 auto' }} href="https://github.com/kacesensitive/featured-hat/blob/main/HOWITWORKS.md" target="_blank" rel="noreferrer">More Info</a>
                   <a style={{ margin: '0 auto' }} href="https://www.buymeacoffee.com/kacesensitive" target="_blank" rel="noreferrer">
                     <Image src="/default-red.png" alt="Buy Me A Coffee" height="41" width="174" />
