@@ -46,7 +46,7 @@ export function SiteHeader() {
                   </DialogDescription>
                 </DialogHeader>
                   Change the channel name in the bottom right input box.
-                  <Image src="/name.gif" alt="Description" style={{ paddingBottom: '2vh', display: 'block', margin: '0 auto' }} width={380} height={220} />
+                  <Image src="/name2.gif" alt="Description" style={{ paddingBottom: '2vh', display: 'block', margin: '0 auto' }} width={380} height={220} />
 
                   Left is your chat, bottom right is the queue, top right is the Display zone.
                   <Image src="/orientation.png" alt="Description" style={{ paddingBottom: '2vh', display: 'block', margin: '0 auto' }} width={380} height={220} />
@@ -61,10 +61,10 @@ export function SiteHeader() {
                   <Image src="/remove.gif" alt="Description" style={{ paddingBottom: '2vh', display: 'block', margin: '0 auto' }} width={380} height={220} />
 
                   Go to the link by clicking the button in the top right of the Display zone for a dedicated page. Or copy the link to be used as a browser source in OBS.
-                  <Image src="/copy.gif" alt="Description" style={{ paddingBottom: '2vh', display: 'block', margin: '0 auto' }} width={380} height={220} />
+                  <Image src="/copy2.gif" alt="Description" style={{ paddingBottom: '2vh', display: 'block', margin: '0 auto' }} width={380} height={220} />
 
                   Set your browser source to in OBS and get to streaming!
-                  <Image src="/OBS.gif" alt="Description" style={{ paddingBottom: '2vh', display: 'block', margin: '0 auto' }} width={380} height={220} />
+                  <Image src="/OBS2.gif" alt="Description" style={{ paddingBottom: '2vh', display: 'block', margin: '0 auto' }} width={380} height={220} />
                   <a style={{ color: 'lightblue', fontWeight: 'bolder', margin: '0 auto' }} href="https://github.com/kacesensitive/featured-hat/blob/main/HOWITWORKS.md" target="_blank" rel="noreferrer">More Info</a>
                   <a style={{ margin: '0 auto' }} href="https://www.buymeacoffee.com/kacesensitive" target="_blank" rel="noreferrer">
                     <Image src="/default-red.png" alt="Buy Me A Coffee" height="41" width="174" />
