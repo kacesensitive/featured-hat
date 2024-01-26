@@ -204,7 +204,7 @@ function IndexPage() {
       <AnimatePresence>
         <motion.div initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }} style={{ width: '50%', borderRight: '1px solid grey', overflowY: 'auto' }} ref={chatContainerRef}>
+          exit={{ opacity: 0 }} style={{ width: '50%', borderRight: '1px solid grey', overflowY: 'auto', overflowX: 'hidden' }} ref={chatContainerRef}>
           <div style={{ padding: '10px', fontWeight: 'bold' }}>Chat</div>
           <AnimatePresence mode="sync">
             {messages.map((msg: any, index: number) => (
