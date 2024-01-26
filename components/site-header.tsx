@@ -57,11 +57,11 @@ export function SiteHeader() {
                   You can toggle the display on and off with the button in the bottom right (this does apply to the viewer page as well).
                   <Image priority placeholder="blur" blurDataURL='/hide.png' src="/hide.png" alt="Description" style={{ paddingBottom: '2vh', display: 'block', margin: '0 auto' }} width={380} height={220} />
 
-                  Right click a queue item to remove it from the queue.
+                  Right click a queue item to remove it.
                   <Image priority placeholder="blur" blurDataURL='/remove.gif' src="/remove.gif" alt="Description" style={{ paddingBottom: '2vh', display: 'block', margin: '0 auto' }} width={380} height={220} />
 
                   Go to the link by clicking the button in the top right of the Display zone for a dedicated page. Or copy the link to be used as a browser source in OBS.
-                  <Image priority placeholder="blur" blurDataURL='/copy2.gif' src="/copy2.gif" alt="Description" style={{ paddingBottom: '2vh', display: 'block', margin: '0 auto' }} width={380} height={220} />
+                  <Image priority placeholder="blur" blurDataURL='/copy2.png' src="/copy2.png" alt="Description" style={{ paddingBottom: '2vh', display: 'block', margin: '0 auto' }} width={380} height={220} />
 
                   Set your browser source to in OBS and get to streaming!
                   <Image priority placeholder="blur" blurDataURL='/OBS2.gif' src="/OBS2.gif" alt="Description" style={{ paddingBottom: '2vh', display: 'block', margin: '0 auto' }} width={380} height={220} />
