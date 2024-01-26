@@ -54,6 +54,7 @@ function IndexPage() {
   const [viewerUrl, setViewerUrl] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [isAutoScrolling, setIsAutoScrolling] = useState(true);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(viewerUrl || '');
@@ -101,7 +102,7 @@ function IndexPage() {
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
-    if (chatContainerRef.current) {
+    if (chatContainerRef.current && isAutoScrolling) {
       chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
     }
   };
@@ -183,7 +184,7 @@ function IndexPage() {
               platform: 'twitch',
             }
           ];
-          return newChat.slice(-60);
+          return newChat.slice(-500);
         }
       });
 
@@ -228,6 +229,8 @@ function IndexPage() {
                   cursor: 'pointer',
                 }}
                 whileHover={{ backgroundColor: '#464646' }}
+                onHoverStart={() => setIsAutoScrolling(false)}
+                onHoverEnd={() => setIsAutoScrolling(true)}
               >
                 <div style={{
                   alignSelf: 'flex-start',
@@ -272,6 +275,28 @@ function IndexPage() {
                 }}></div>
               </motion.div>
             ))}
+            {!isAutoScrolling && (
+              <motion.div
+                onClick={() => setIsAutoScrolling(true)}
+                initial={{ opacity: 0, x: -200 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 200 }}
+                transition={{ duration: 0.1 }}
+                style={{
+                  position: 'absolute',
+                  bottom: '5px',
+                  left: '5px',
+                  backgroundColor: 'black',
+                  padding: '10px',
+                  borderRadius: '50px',
+                  border: '2px solid white',
+                  cursor: 'pointer',
+                  zIndex: 100,
+                }}
+              >
+                Resume Scrolling
+              </motion.div>
+            )}
           </AnimatePresence>
         </motion.div>
         <motion.div initial={{ opacity: 0 }}
@@ -485,7 +510,7 @@ function IndexPage() {
                 value={inputChannel}
                 onChange={(e) => setInputChannel(e.target.value)}
                 placeholder="Enter Twitch channel"
-                style={{ padding: '5px', borderRadius: '50px'}}
+                style={{ padding: '5px', borderRadius: '50px' }}
               />
             </div>
             <motion.div
