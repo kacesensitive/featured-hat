@@ -275,28 +275,6 @@ function IndexPage() {
                 }}></div>
               </motion.div>
             ))}
-            {!isAutoScrolling && (
-              <motion.div
-                onClick={() => setIsAutoScrolling(true)}
-                initial={{ opacity: 0, x: -200 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 200 }}
-                transition={{ duration: 0.1 }}
-                style={{
-                  position: 'absolute',
-                  bottom: '5px',
-                  left: '5px',
-                  backgroundColor: 'black',
-                  padding: '10px',
-                  borderRadius: '50px',
-                  border: '2px solid white',
-                  cursor: 'pointer',
-                  zIndex: 100,
-                }}
-              >
-                Resume Scrolling
-              </motion.div>
-            )}
           </AnimatePresence>
         </motion.div>
         <motion.div initial={{ opacity: 0 }}
