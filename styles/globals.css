@@ -121,4 +121,32 @@
     @apply text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
+
+  @keyframes rainbow {
+    0% {
+      background-position: 0% 50%;
+    }
+
+    50% {
+      background-position: 100% 50%;
+    }
+
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  .rainbow-text {
+    background: linear-gradient(90deg, rgb(255, 73, 73), rgb(255, 194, 81), rgb(255, 255, 66), rgb(70, 255, 70), rgb(70, 70, 255), rgb(181, 79, 255), rgb(255, 77, 255));
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: rainbow 5s ease infinite;
+  }
+
+    @keyframes rainbow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
 }

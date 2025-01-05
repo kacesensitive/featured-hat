@@ -1,6 +1,6 @@
 "use client";
 
-import { isDark, lightenColor, safeParse } from '@/lib/utils';
+import { isDark, lightenColor, parseMessageWithEmotes, safeParse } from '@/lib/utils';
 import Autolinker from 'autolinker';
 import { AnimatePresence, motion } from 'framer-motion';
 import React, { useState, useEffect, useRef } from 'react';
@@ -9,6 +9,8 @@ import tmi from 'tmi.js';
 import { FaCheck, FaCopy, FaExternalLinkAlt, FaEye, FaEyeSlash } from 'react-icons/fa';
 import { DriftDBProvider, useSharedState } from 'driftdb-react';
 import MobileLandingPage from '@/components/MobilePage';
+import { ChatMessage } from '@/components/ChatMessage';
+import { useTheme } from 'next-themes';
 
 const TWITCH_CHANNEL = '';
 
@@ -30,17 +32,6 @@ export interface Message {
 }
 
 const emojiSize = '24px';
-const options: EmoteOptions = {
-  format: 'default',
-  themeMode: 'light',
-  scale: '1.0',
-};
-
-const parseMessageWithEmotes = (msg: string, emotes: any) => {
-  let parsedMessage = safeParse(msg, emotes, options);
-  parsedMessage = parsedMessage.replace(/<img /g, '<img style="max-width:24px; max-height:24px; display:inline-block; vertical-align:middle;" ');
-  return parsedMessage;
-};
 
 function IndexPage() {
   const [messages, setMessages]: any = useState([]);
@@ -55,6 +46,12 @@ function IndexPage() {
   const [isMobile, setIsMobile] = useState(false);
   const [copied, setCopied] = useState(false);
   const [isAutoScrolling, setIsAutoScrolling] = useState(true);
+
+  const { setTheme, theme } = useTheme();
+
+  useEffect(() => {
+    setTheme("dark")
+  }, []);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(viewerUrl || '');
@@ -284,66 +281,11 @@ function IndexPage() {
             {/* Display Zone */}
             <AnimatePresence mode="wait">
               {displayMessage && isDisplayMessageVisible && (
-                <motion.div
-                  key={displayMessage.id}
-                  initial={{ y: 300, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: -300, opacity: 0 }}
-                  style={{
-                    display: "flex",
-                    flexDirection: 'column',
-                    alignItems: "flex-start",
-                    justifyContent: "flex-start",
-                    padding: "10px",
-                    backgroundColor: "black",
-                    fontSize: emojiSize,
-                    maxWidth: '580px',
-                    width: '100%',
-                    cursor: 'pointer',
-                  }}
-                >
-                  <div style={{
-                    alignSelf: 'flex-start',
-                    width: '100%',
-                    display: 'flex',
-                    justifyContent: 'flex-start',
-                    paddingRight: '10px',
-                  }}>
-                    <span className="username" style={{
-                      fontWeight: "bold",
-                      color: displayMessage.color && isDark(displayMessage.color) ? lightenColor(displayMessage.color, 40) : displayMessage.color || "white",
-                      fontSize: emojiSize,
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                      whiteSpace: 'nowrap',
-                    }}>{displayMessage.user + ':'}</span>
-                  </div>
-                  <div style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    margin: '0 auto',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    WebkitLineClamp: 3,
-                    WebkitBoxOrient: 'vertical',
-                    textAlign: 'center',
-                    padding: '0 10px',
-                    width: '100%',
-                  }}>
-                    <span className="message" dangerouslySetInnerHTML={{
-                      __html: Autolinker.link(parseMessageWithEmotes(displayMessage.message || '-', displayMessage.emotes), {
-                        className: 'apple',
-                      }),
-                    }} style={{ fontSize: emojiSize }} />
-                  </div>
-                  <div style={{
-                    bottom: '0',
-                    left: '0',
-                    width: '100%',
-                    height: '4px',
-                    backgroundColor: displayMessage.color || "white",
-                  }}></div>
-                </motion.div>
+                ChatMessage({
+                  message: displayMessage,
+                  emojiSize: "24px",
+                  maxWidth: "580px"
+                })
               )}
             </AnimatePresence>
           </div>
@@ -522,4 +464,8 @@ export default function Index() {
       <IndexPage />
     </DriftDBProvider>
   );
+}
+
+function setTheme(arg0: string) {
+  throw new Error('Function not implemented.');
 }

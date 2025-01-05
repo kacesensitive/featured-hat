@@ -1,5 +1,5 @@
 import { clsx, type ClassValue } from "clsx"
-import { parse } from "simple-tmi-emotes";
+import { EmoteOptions, parse } from "simple-tmi-emotes";
 import { twMerge } from "tailwind-merge"
 
 export function cn(...inputs: ClassValue[]) {
@@ -41,4 +41,16 @@ export const safeParse = (message: string, emotes: any, options: any) => {
       console.error('Error during parsing:', e);
       return '';
   }
+};
+
+export const options: EmoteOptions = {
+  format: 'default',
+  themeMode: 'light',
+  scale: '1.0',
+};
+
+export const parseMessageWithEmotes = (msg: string, emotes: any) => {
+  let parsedMessage = safeParse(msg, emotes, options);
+  parsedMessage = parsedMessage.replace(/<img /g, '<img style="max-width:24px; max-height:24px; display:inline-block; vertical-align:middle;" ');
+  return parsedMessage;
 };
