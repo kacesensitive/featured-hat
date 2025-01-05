@@ -22,6 +22,29 @@ export const metadata: Metadata = {
     shortcut: "/favicon-16x16.png",
     apple: "/apple-touch-icon.png",
   },
+  keywords: [
+    "featured.chat",
+    "featuredhat",
+    "featured-hat",
+    "featured.hat",
+    "featured hat",
+    "featured.chat replacement",
+    "featured.chat alternative",
+    "featured",
+    "hat",
+    "open source",
+    "twitch",
+    "twitch chat",
+    "twitch chat overlay",
+    "twitch chat viewer",
+    "twitch chat queue",
+    "twitch chat display",
+    "twitch chat queue display",
+    "twitch chat queue viewer",
+    "twitch chat queue display viewer",
+    "twitch chat queue display overlay",
+    "twitch chat queue display overlay viewer",
+  ]
 }
 
 interface RootLayoutProps {
@@ -32,8 +55,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
 
   return (
     <>
-      <html lang="en" suppressHydrationWarning>
-        <head />
+      <html lang="en" suppressHydrationWarning>s
         <body
           className={cn(
             "min-h-screen font-sans antialiased overflow-hidden",
